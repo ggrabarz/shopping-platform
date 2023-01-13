@@ -2,6 +2,7 @@ package pl.inpost.shopping.core.policy;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import pl.inpost.shopping.core.policy.exception.NegativePriceException;
 
 import java.math.BigDecimal;
 
@@ -17,7 +18,11 @@ class PercentageBasedDiscountPolicy implements DiscountPolicy {
 
     @Override
     public BigDecimal calculateDiscount(BigDecimal basePrice, Integer amount) {
-        BigDecimal discount = BigDecimal.ZERO;
+        if (isPriceNegative(basePrice)) {
+            throw new NegativePriceException();
+        }
+
+        BigDecimal discount = properties.getDiscount();
         return basePrice.multiply(discount);
     }
 }

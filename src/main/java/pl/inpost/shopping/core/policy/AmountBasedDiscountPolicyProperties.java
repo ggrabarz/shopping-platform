@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.Map;
 import java.util.SortedMap;
 
 @ConfigurationProperties("policy.amount-based")
@@ -17,7 +16,7 @@ import java.util.SortedMap;
 public class AmountBasedDiscountPolicyProperties {
 
     @Valid
-    private final Map<Integer, @Min(0) @Max(100) BigDecimal> discounts;
+    private final SortedMap<Integer, @Min(0) @Max(100) BigDecimal> discounts;
 
     @ConstructorBinding
     AmountBasedDiscountPolicyProperties(final SortedMap<Integer, BigDecimal> discounts) {
@@ -27,7 +26,7 @@ public class AmountBasedDiscountPolicyProperties {
         this.discounts = discounts;
     }
 
-    public Map<Integer, BigDecimal> getDiscounts() {
-        return Collections.unmodifiableMap(discounts);
+    public SortedMap<Integer, BigDecimal> getDiscounts() {
+        return Collections.unmodifiableSortedMap(discounts);
     }
 }
