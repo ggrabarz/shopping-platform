@@ -1,0 +1,13 @@
+policy:
+  amount-based:
+    enabled: true
+    # Defined as sorted map of [amount: discount in %] - 10: 25 means a 25% discount for 10+ products
+    discounts:
+      20: 50
+      10: 25
+      5: 15
+      3: 5
+  percentage-based:
+    enabled: true
+    discount: 25
+
