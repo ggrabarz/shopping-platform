@@ -12,8 +12,8 @@ repositories {
     mavenCentral()
 }
 
-extra["springCloudVersion"] = "2022.0.0"
-extra["testcontainersVersion"] = "1.17.6"
+val dockerImageName by extra { "pl.inpost/${project.name}" }
+val testcontainersVersion by extra { "1.17.6" }
 
 dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
@@ -32,10 +32,24 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
+        mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
     }
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+    imageName.set(dockerImageName)
+}
+
+tasks.register<Exec>("dockerRun") {
+    commandLine("docker", "run", "-dit", "-p", "8080:8080", dockerImageName)
+    doFirst {
+        println("Starting container for image $dockerImageName")
+        println("Get your example discount at http://localhost:8080/calculate-price-discount?productId=e737b48b-1fe2-476a-ba2e-85c44f036e86&amount=5")
+        println("Stop the container with command:")
+        print("docker stop ")
+    }
 }
