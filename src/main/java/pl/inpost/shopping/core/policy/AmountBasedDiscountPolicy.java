@@ -2,8 +2,8 @@ package pl.inpost.shopping.core.policy;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import pl.inpost.shopping.core.policy.exception.NegativeAmountException;
-import pl.inpost.shopping.core.policy.exception.NegativePriceException;
+import pl.inpost.shopping.domain.exception.NegativeAmountException;
+import pl.inpost.shopping.domain.exception.NegativePriceException;
 
 import java.math.BigDecimal;
 import java.util.Map.Entry;
@@ -14,12 +14,12 @@ class AmountBasedDiscountPolicy implements DiscountPolicy {
 
     private final AmountBasedDiscountPolicyProperties properties;
 
-    AmountBasedDiscountPolicy(AmountBasedDiscountPolicyProperties properties) {
+    AmountBasedDiscountPolicy(final AmountBasedDiscountPolicyProperties properties) {
         this.properties = properties;
     }
 
     @Override
-    public BigDecimal calculateDiscount(BigDecimal basePrice, Integer amount) {
+    public BigDecimal calculateDiscount(final BigDecimal basePrice, final Integer amount) {
         if (isPriceNegative(basePrice)) {
             throw new NegativePriceException();
         }
@@ -32,7 +32,7 @@ class AmountBasedDiscountPolicy implements DiscountPolicy {
         return basePrice.multiply(discount);
     }
 
-    private BigDecimal findDiscountPercentage(Integer amount) {
+    private BigDecimal findDiscountPercentage(final Integer amount) {
         return properties.getDiscounts()
                 .entrySet()
                 .stream()

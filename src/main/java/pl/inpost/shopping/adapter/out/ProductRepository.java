@@ -3,6 +3,7 @@ package pl.inpost.shopping.adapter.out;
 import org.springframework.stereotype.Component;
 import pl.inpost.shopping.core.port.out.ProductDataAccess;
 import pl.inpost.shopping.domain.Product;
+import pl.inpost.shopping.domain.exception.ProductNotFound;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -20,12 +21,12 @@ public class ProductRepository implements ProductDataAccess {
     );
 
     @Override
-
     public Product findById(final UUID productId) {
         ProductEty productEty = mockProducts.stream()
                 .filter(product -> product.productId().equals(productId))
                 .findFirst()
-                .get();
+                .orElseThrow(() -> new ProductNotFound(productId));
+
         return productEty.toDomain();
     }
 }

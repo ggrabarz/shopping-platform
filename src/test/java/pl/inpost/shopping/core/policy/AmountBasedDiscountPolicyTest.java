@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pl.inpost.shopping.core.policy.exception.NegativeAmountException;
-import pl.inpost.shopping.core.policy.exception.NegativePriceException;
+import pl.inpost.shopping.domain.exception.NegativeAmountException;
+import pl.inpost.shopping.domain.exception.NegativePriceException;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static pl.inpost.shopping.mock.TestConstants.*;
+import static pl.inpost.shopping.testutils.TestConstants.*;
 
 class AmountBasedDiscountPolicyTest {
     private static final BigDecimal BASE_PRICE = BigDecimal.valueOf(1000);

@@ -2,7 +2,7 @@ package pl.inpost.shopping.core.policy;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import pl.inpost.shopping.core.policy.exception.NegativePriceException;
+import pl.inpost.shopping.domain.exception.NegativePriceException;
 
 import java.math.BigDecimal;
 

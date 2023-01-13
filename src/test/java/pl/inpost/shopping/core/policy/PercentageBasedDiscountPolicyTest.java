@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pl.inpost.shopping.core.policy.exception.NegativePriceException;
+import pl.inpost.shopping.domain.exception.NegativePriceException;
 
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static pl.inpost.shopping.mock.TestConstants.DISCOUNT_15;
+import static pl.inpost.shopping.testutils.TestConstants.DISCOUNT_15;
 
 class PercentageBasedDiscountPolicyTest {
     private static final BigDecimal BASE_PRICE = BigDecimal.valueOf(1000);

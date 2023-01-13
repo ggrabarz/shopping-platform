@@ -3,9 +3,9 @@ package pl.inpost.shopping.core.policy;
 import java.math.BigDecimal;
 
 public interface DiscountPolicy {
-    BigDecimal calculateDiscount(BigDecimal basePrice, Integer amount);
+    BigDecimal calculateDiscount(final BigDecimal basePrice, final Integer amount);
 
-    default boolean isPriceNegative(BigDecimal basePrice) {
+    default boolean isPriceNegative(final BigDecimal basePrice) {
         return basePrice.compareTo(BigDecimal.ZERO) < 0;
     }
 }
