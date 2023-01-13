@@ -7,14 +7,23 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.inpost.shopping.core.port.in.CalculatePriceDiscountUseCase;
+import pl.inpost.shopping.domain.PriceDiscount;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 
 @RestController
 @Validated
 public class CalculatePriceDiscountEndpoint {
+
+    private final CalculatePriceDiscountUseCase calculatePriceDiscountUseCase;
+
+    CalculatePriceDiscountEndpoint(
+            CalculatePriceDiscountUseCase calculatePriceDiscountUseCase
+    ) {
+        this.calculatePriceDiscountUseCase = calculatePriceDiscountUseCase;
+    }
 
     @GetMapping(
             path = "/calculate-price-discount",
@@ -24,11 +33,7 @@ public class CalculatePriceDiscountEndpoint {
             @RequestParam UUID productId,
             @RequestParam @Positive Integer amount
     ) {
-        return new PriceDiscountDto(
-                productId,
-                amount,
-                BigDecimal.valueOf(399.00),
-                BigDecimal.valueOf(235.15)
-        );
+        PriceDiscount priceDiscount = calculatePriceDiscountUseCase.getPriceDiscount(productId, amount);
+        return new PriceDiscountDto(priceDiscount);
     }
 }
