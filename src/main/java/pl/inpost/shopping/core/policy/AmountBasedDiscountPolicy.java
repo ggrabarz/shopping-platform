@@ -28,11 +28,11 @@ class AmountBasedDiscountPolicy implements DiscountPolicy {
             throw new NegativeAmountException();
         }
 
-        BigDecimal discount = findDiscount(amount);
+        BigDecimal discount = findDiscountPercentage(amount);
         return basePrice.multiply(discount);
     }
 
-    private BigDecimal findDiscount(Integer amount) {
+    private BigDecimal findDiscountPercentage(Integer amount) {
         return properties.getDiscounts()
                 .entrySet()
                 .stream()

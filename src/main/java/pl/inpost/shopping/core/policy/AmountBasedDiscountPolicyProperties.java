@@ -16,7 +16,7 @@ import java.util.SortedMap;
 public class AmountBasedDiscountPolicyProperties {
 
     @Valid
-    private final SortedMap<Integer, @Min(0) @Max(100) BigDecimal> discounts;
+    private final SortedMap<Integer, @Min(0) @Max(1) BigDecimal> discounts;
 
     @ConstructorBinding
     AmountBasedDiscountPolicyProperties(final SortedMap<Integer, BigDecimal> discounts) {

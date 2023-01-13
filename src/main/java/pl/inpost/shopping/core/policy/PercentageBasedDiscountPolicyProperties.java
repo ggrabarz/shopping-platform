@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class PercentageBasedDiscountPolicyProperties {
 
     @Min(0)
-    @Max(100)
+    @Max(1)
     private final BigDecimal discount;
 
     @ConstructorBinding
