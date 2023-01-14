@@ -1,13 +1,13 @@
 version: "3.9"
-
 services:
   mongo:
     build: ./mongo
-    image: pl.inpost/shopping-mongo
+    image: ${DOCKER_IMAGE_MONGO}
     restart: always
     ports:
       - "27017:27017"
     environment:
+      # overwrite the image env when needed
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
       MONGO_INITDB_DATABASE: shopping-platform
@@ -15,7 +15,7 @@ services:
       MONGO_INITDB_PASSWORD: inpost
 
   shopping-platform:
-    image: pl.inpost/shopping-platform
+    image: ${DOCKER_IMAGE_NAME}
     ports:
       - "8081:8080"
     environment:

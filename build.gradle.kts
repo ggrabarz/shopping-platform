@@ -13,6 +13,7 @@ repositories {
 }
 
 val dockerImageName by extra { "pl.inpost/${project.name}" }
+val dockerImageMongo by extra { "pl.inpost/shopping-mongo" }
 val testcontainersVersion by extra { "1.17.6" }
 
 dependencies {
@@ -45,16 +46,20 @@ tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("boot
 }
 
 tasks.register<Exec>("dockerBuild") {
-    group = "application"
     dependsOn(tasks.getByName("bootBuildImage"))
+    group = "application"
     workingDir = file("./docker")
+    environment("DOCKER_IMAGE_MONGO", dockerImageMongo)
+    environment("DOCKER_IMAGE_NAME", dockerImageName)
     commandLine("docker-compose", "build")
 }
 
 tasks.register<Exec>("dockerComposeUp") {
     group = "application"
-    commandLine("docker-compose", "up", "-d")
     workingDir = file("./docker")
+    environment("DOCKER_IMAGE_MONGO", dockerImageMongo)
+    environment("DOCKER_IMAGE_NAME", dockerImageName)
+    commandLine("docker-compose", "up", "-d")
     doLast {
         println("Starting service containers...")
         println("Get your example discount at:")
@@ -66,6 +71,14 @@ tasks.register<Exec>("dockerComposeUp") {
 
 tasks.register<Exec>("dockerComposeDown") {
     group = "application"
+    environment("DOCKER_IMAGE_MONGO", dockerImageMongo)
+    environment("DOCKER_IMAGE_NAME", dockerImageName)
     commandLine("docker-compose", "down")
+    workingDir = file("./docker")
+}
+
+tasks.register<Exec>("dockerRunMongo") {
+    group = "application"
+    commandLine("docker", "run", "-dit", "-p", "27017:27017", "--name", "shopping-mongo", dockerImageMongo)
     workingDir = file("./docker")
 }

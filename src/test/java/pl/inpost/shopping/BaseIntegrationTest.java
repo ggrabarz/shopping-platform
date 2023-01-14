@@ -26,12 +26,7 @@ public class BaseIntegrationTest {
             DockerImageName.parse("pl.inpost/shopping-mongo")
                     .asCompatibleSubstituteFor("mongo"))
             .withExposedPorts(27017)
-            .waitingFor(Wait.forLogMessage(".*Waiting for connections.*", 1))
-            .withEnv("MONGO_INITDB_ROOT_USERNAME", "root")
-            .withEnv("MONGO_INITDB_ROOT_PASSWORD", "root")
-            .withEnv("MONGO_INITDB_DATABASE", "shopping-platform")
-            .withEnv("MONGO_INITDB_USERNAME", "inpost")
-            .withEnv("MONGO_INITDB_PASSWORD", "inpost");
+            .waitingFor(Wait.forLogMessage(".*Waiting for connections.*", 1));
 
     @DynamicPropertySource
     static void registerMongoPort(DynamicPropertyRegistry registry) {
