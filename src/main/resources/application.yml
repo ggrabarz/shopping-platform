@@ -5,9 +5,9 @@ policy:
     # e.g. 10: 0.25 means a 25,00% discount for 10+ products
     discounts:
       1000: 1.0
-      20: 0.509
-      10: 0.25
-      5: 0.15
+      20: 0.30
+      10: 0.20
+      5: 0.10
       3: 0.05
   percentage-based:
     enabled: true

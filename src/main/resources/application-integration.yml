@@ -1,0 +1,11 @@
+policy:
+  amount-based:
+    enabled: true
+    discounts:
+      20: 0.509
+      10: 0.25
+      5: 0.15
+      3: 0.05
+  percentage-based:
+    enabled: true
+    discount: 0.10

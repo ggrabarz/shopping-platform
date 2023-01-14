@@ -1,6 +1,7 @@
 Inpost Shopping Platform
 ========================
-Inpost recruitment assignment - a service calculating discounts for a given amount of products.
+Inpost recruitment assignment - a service calculating discounts for a given amount of products.  
+Project structure based on https://reflectoring.io/book/.
 
 Requirements
 --------
