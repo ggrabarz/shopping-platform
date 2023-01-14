@@ -35,6 +35,7 @@ class CalculatePriceDiscountService implements CalculatePriceDiscountUseCase {
 
         return new PriceDiscount(
                 product.productId(),
+                product.name(),
                 amount,
                 basePrice,
                 priceDiscounted

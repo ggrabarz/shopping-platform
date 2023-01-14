@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public record PriceDiscount(
         UUID productId,
+        String name,
         Integer amount,
         BigDecimal priceBase,
         BigDecimal priceDiscounted

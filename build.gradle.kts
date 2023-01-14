@@ -19,7 +19,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-//    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
@@ -44,12 +44,28 @@ tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("boot
     imageName.set(dockerImageName)
 }
 
-tasks.register<Exec>("dockerRun") {
-    commandLine("docker", "run", "-dit", "-p", "8080:8080", dockerImageName)
-    doFirst {
-        println("Starting container for image $dockerImageName")
-        println("Get your example discount at http://localhost:8080/calculate-price-discount?productId=e737b48b-1fe2-476a-ba2e-85c44f036e86&amount=5")
-        println("Stop the container with command:")
-        print("docker stop ")
+tasks.register<Exec>("dockerBuild") {
+    group = "application"
+    dependsOn(tasks.getByName("bootBuildImage"))
+    workingDir = file("./docker")
+    commandLine("docker-compose", "build")
+}
+
+tasks.register<Exec>("dockerComposeUp") {
+    group = "application"
+    commandLine("docker-compose", "up", "-d")
+    workingDir = file("./docker")
+    doLast {
+        println("Starting service containers...")
+        println("Get your example discount at:")
+        println("http://localhost:8081/calculate-price-discount?productId=e737b48b-1fe2-476a-ba2e-85c44f036e86&amount=2")
+        println("http://localhost:8081/calculate-price-discount?productId=a8ef1604-79a0-4b0a-88af-3a131934398f&amount=15")
+        println("http://localhost:8081/calculate-price-discount?productId=09716a47-ab35-4753-8f12-b52e0f9ceca2&amount=21")
     }
+}
+
+tasks.register<Exec>("dockerComposeDown") {
+    group = "application"
+    commandLine("docker-compose", "down")
+    workingDir = file("./docker")
 }

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public record PriceDiscountDto(
         UUID productId,
+        String name,
         Integer amount,
         BigDecimal priceBase,
         BigDecimal priceDiscounted
@@ -14,6 +15,7 @@ public record PriceDiscountDto(
     PriceDiscountDto(PriceDiscount priceDiscount) {
         this(
                 priceDiscount.productId(),
+                priceDiscount.name(),
                 priceDiscount.amount(),
                 priceDiscount.priceBase(),
                 priceDiscount.priceDiscounted()

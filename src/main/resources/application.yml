@@ -12,3 +12,11 @@ policy:
   percentage-based:
     enabled: true
     discount: 0.10
+
+spring:
+  data:
+    mongodb:
+      database: shopping-platform
+      username: inpost
+      password: inpost
+      uuid-representation: standard
