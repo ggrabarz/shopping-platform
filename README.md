@@ -41,3 +41,11 @@ Running unit tests and integration tests:
 Sample requests
 ---------------
 See [calculate-price-discount.http](./http/calculate-price-discount.http)
+
+Next steps:
+----------
+Simple upgrades that I'd do next:
+* split `gradle test` task to `unitTest` and `integrationTest` either using JUnit 5 Tags or a separate source-set for integration (my preferred way) so you can easily run only unit or integration tests
+* introduce `springdoc-openapi-ui` to the endpoint to generate OpenAPI and integrate with Swagger UI
+* introduce static code analysis tools (lately I've been using detekt and codenarc for Spock with Groovy, prettier for React apps)
+* expand the test coverage
